@@ -1,0 +1,52 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.6.RELEASE'
+		kotlinVersion = "1.3.11"
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
+		classpath "org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE"
+	}
+}
+
+apply plugin: 'kotlin' // Required for Kotlin integration
+apply plugin: "kotlin-spring" // See https://kotlinlang.org/docs/reference/compiler-plugins.html#kotlin-spring-compiler-plugin
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+jar {
+	baseName = 'codot-server'
+	version = '0.1.0'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion" // Required for Kotlin integration
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// mongodb
+	implementation 'mysql:mysql-connector-java'
+
+	// Retrofit2
+	implementation "com.squareup.retrofit2:retrofit:2.4.0"
+	implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+	// RxKotlin
+	implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+
+	// Swagger
+	implementation 'io.springfox:springfox-swagger2:2.6.1'
+	implementation 'io.springfox:springfox-swagger-ui:2.6.1'
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
